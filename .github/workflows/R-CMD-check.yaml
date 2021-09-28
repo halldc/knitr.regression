@@ -20,12 +20,10 @@ jobs:
       matrix:
         include:
 
-          - {r: '3.6'} # default R in ubuntu-20.04
-          - {r: '3.5'}
-          - {r: '3.4'}
+          - {r: '4.1'}
 
 
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: 'true'
       R_COMPILE_AND_INSTALL_PACKAGES: 'never'
@@ -70,9 +68,6 @@ jobs:
 
       - name: Install rcmdcheck
         run: remotes::install_cran("rcmdcheck")
-
-      # - name: Workaround knitr regression
-      #   run: if(getRversion() < "3.5") remotes::install_version("knitr", "1.30")
 
       - name: Check
         run: rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')
